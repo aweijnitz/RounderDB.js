@@ -1,42 +1,39 @@
 var assert = require('assert');
-//var rounder = require('./rounder.js');
-/*
- From whisper
- To support accurate aggregation from higher to lower resolution archives, the number of points in a longer retention
- archiveName must be divisible by its next lower retention archiveName. For example, an archiveName with 1 _data points every
- 60 seconds and retention of 120 points (2 hours worth of _data) can have a lower-resolution archiveName following it with
- a resolution of 1 _data point every 300 seconds for 1200 points
- */
 
-describe('Create archiveName', function () {
-    var conf = {
-        cpuLoad: [
-            {
-                _capacity: 2, // nr _data points to storage before aggregation occurs to next bucket
-                persistence: 'RAM',
-                aggregationStrategy: 'average'
-            },
-            {
-                _capacity: 4,
-                persistence: 'RAM'
-            }
+var RounderDB = require('../RounderDB.js');
+var Archive = require('../lib/Archive.js');
+var DataBucket = require('../lib/DataBucket.js');
 
-        ],
-        clicks: [
-            {
-                _capacity: 2, // nr _data points to storage before aggregation occurs to next bucket
-                persistence: 'RAM',
-                aggregationStrategy: 'sum'
-            },
-            {
-                _capacity: 4,
-                persistence: 'RAM'
-            }
-        ]
-    }
 
-    it('should have some prop', function () {
-        assert(true);
+describe('RounderDB', function () {
+    var conf = require('./fixtures/testConf.json');
+
+    it('Constructor parses basic conf', function () {
+        var rb = RounderDB.createInstance(conf);
+        assert(rb.getArchive('cpuLoad') instanceof Archive, "Archive not instance of Archive. Returned: " + JSON.stringify(rb.getArchive('cpuLoad'), null, 4));
+        assert(rb.getArchive('clicks') instanceof Archive);
+        assert(rb.getArchive('cpuLoad').getBucket(0) instanceof DataBucket, "getBucket() did not return instance of DataBucket. Returned: " + rb.getArchive('cpuLoad').getBucket(0));
+        assert(rb.getArchive('cpuLoad').getNrBuckets() == 2);
+        assert(rb.getArchive('clicks').getNrBuckets() == 2);
     });
+
+    it('add() adds values', function () {
+        var rb = RounderDB.createInstance(conf);
+        rb.add('cpuLoad', 1.2);
+        rb.add('cpuLoad', 1.3);
+
+        assert(rb.getArchive('cpuLoad').getDataForBucket(0).length == 2);
+    });
+
+    it('addArchive adds archives', function () {
+        var rb = new RounderDB();
+        var archive = new Archive();
+        archive.addBucket(new DataBucket(2, 'average'));
+        rb.addArchive('cpuLoad', archive);
+
+        assert(rb.getArchive('cpuLoad') instanceof Archive);
+        assert(rb.getNrArchives() == 1, "Expected 1, but the number of archives are: "+rb.getNrArchives());
+    });
+
 });
 

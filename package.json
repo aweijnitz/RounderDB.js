@@ -1,10 +1,11 @@
 {
-  "name": "rounder",
+  "name": "RounderDB",
   "version": "0.0.1",
-  "description": "Round robin JSON store with in-mem support. Store in mem and sync periodically to disk.",
-  "main": "index.js",
+  "description": "A low-I/O, fixed size, round robin db with in-mem support. Store in RAM and sync periodically to disk.",
+  "main": "rounder.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -R spec",
+    "testIntegration": "mocha -R spec ./test/integration/*js"
   },
   "repository": "",
   "keywords": [
@@ -17,5 +18,8 @@
     "Pi"
   ],
   "author": "Anders Weijnitz",
-  "license": "BSD"
+  "license": "BSD",
+  "devDependencies": {
+    "mocha": "~1.13.0"
+  }
 }
