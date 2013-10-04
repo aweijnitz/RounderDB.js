@@ -1,6 +1,6 @@
 {
   "name": "rounderdb",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A low-I/O, fixed size, round robin db with in-mem support. Store in RAM and sync periodically to disk.",
   "main": "rounder.js",
   "scripts": {
