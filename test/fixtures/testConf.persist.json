@@ -1,0 +1,24 @@
+{
+    "persistenceConf": {
+        "dbFile": "./test/tmp/rounderDB.json",
+        "syncInterval": 1
+    },
+    "cpuLoad": [
+        {
+            "capacity": 2,
+            "aggregationStrategy": "average"
+        },
+        {
+            "capacity": 4
+        }
+    ],
+    "clicks": [
+        {
+            "capacity": 2,
+            "aggregationStrategy": "sum"
+        },
+        {
+            "capacity": 4
+        }
+    ]
+}

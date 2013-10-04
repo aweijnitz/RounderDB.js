@@ -1,0 +1,19 @@
+{ // A configuration defines a number of Archives for storage of measurement values
+    "cpuLoad": [ // Each Archive contains a number of buckets, where each will aggregate values over to the next
+        {
+            "capacity": 2, // nr _data points to storage before aggregation occurs to next bucket
+            "aggregationStrategy": "average"
+        },
+        {
+            "capacity": 4
+        }
+    ],
+    "clicks": [
+    {
+        "capacity": 2, // nr _data points to storage before aggregation occurs to next bucket
+        "aggregationStrategy": "sum"
+    },
+    {
+        capacity: 4
+    }]
+};
