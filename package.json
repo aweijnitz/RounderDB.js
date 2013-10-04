@@ -7,7 +7,7 @@
     "test": "mocha -R spec",
     "testIntegration": "mocha -R spec ./test/integration/*js"
   },
-  "repository": "",
+  "repository": "https://github.com/aweijnitz/RounderDB.js",
   "keywords": [
     "RRD",
     "Monitoring",
