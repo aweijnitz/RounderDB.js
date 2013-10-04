@@ -18,7 +18,7 @@
     "Pi"
   ],
   "author": "Anders Weijnitz",
-  "license": "BSD",
+  "license": "MIT",
   "devDependencies": {
     "mocha": "~1.13.0"
   }
