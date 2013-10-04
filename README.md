@@ -2,6 +2,8 @@
 # RounderDB.js
 ## A low-I/O, fixed size, round robin db with in-mem support. Stores in RAM and syncs periodically to disk.
 
+Build status: [![Build Status](https://travis-ci.org/aweijnitz/RounderDB.js.png)](https://travis-ci.org/aweijnitz/RounderDB.js)
+
 ## Description
 RounderDB is a data logger. Each log, like for example CPU load reading, is called an *archive*. An *archive* keeps a number of *buckets* to store data in. The first bucket receives the added data points and data is then *aggregated up* to the remaining buckets in a chain, first -> second -> third bucket, etc. The aggregation method is configurable, and support is included for average, min, max and sum. 
 
