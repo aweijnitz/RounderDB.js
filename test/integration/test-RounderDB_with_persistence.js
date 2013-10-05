@@ -1,7 +1,7 @@
 var assert = require('assert');
 var fs = require('fs');
 
-var RounderDB = require('../../RounderDB.js');
+var RounderDB = require('../../lib/RounderDB.js');
 var Archive = require('../../lib/Archive.js');
 
 
