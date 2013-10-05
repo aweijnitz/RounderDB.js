@@ -9,7 +9,12 @@ describe('Archive basics', function () {
             aggregationStrategy: 'average'
         },
         {
-            capacity: 4
+            capacity: 2,
+            aggregationStrategy: 'average'
+        },
+        {
+            capacity: 4,
+            aggregationStrategy: 'average'
         }
     ];
 
@@ -36,16 +41,17 @@ describe('Archive basics', function () {
     it('Factory function parses conf, creates valid instance', function () {
         var a = Archive.createInstance(conf);
         assert(a instanceof Archive, "a not instance of Archive");
-        assert(a.getNrBuckets() == 2);
+        assert(a.getNrBuckets() == 3);
         assert(a.getBucket(0) instanceof DataBucket);
         assert(a.getBucket(1) instanceof DataBucket);
+        assert(a.getBucket(2) instanceof DataBucket);
 
     });
 
 
     it('add() stores values', function () {
         var a = Archive.createInstance(conf);
-        assert(a.getNrBuckets() == 2);
+        assert(a.getNrBuckets() == 3);
         assert(a.getBucket(0) instanceof DataBucket);
         assert(a.getBucket(0).lastAdded() == null);
         a.add(1, 1234);
@@ -68,9 +74,24 @@ describe('Archive basics', function () {
 
     it('Aggregation strategy "average"', function () {
         var a = Archive.createInstance(conf);
-        a.add(0, 1234);
-        a.add(3, 1235);
-        assert(a.getBucket(1).lastAdded()[0] == 1.5);
+        a.add(1, 1234);
+        a.add(2, 1235);
+        a.add(3, 1235); // this will trigger the rollUp
+        assert(a.getBucket(1).lastAdded()[0] == 1.5, "Expected 1.5, got: "+a.getBucket(1).lastAdded()[0]);
     });
+
+    it('Aggregation strategy "average", ripple rollUp', function () {
+        var a = Archive.createInstance(conf);
+        a.add(1, 1234);
+        a.add(2, 1235); // aggregate
+        a.add(3, 1236);
+        a.add(4, 1237); // aggregate
+        a.add(5, 1238);
+//        console.log(JSON.stringify(a, null, 4));
+        assert(a.getBucket(1).lastAdded()[0] == 3.5, "a.getBucket(1).lastAdded: "+a.getBucket(1).lastAdded()[0]);
+        assert(a.getBucket(2).lastAdded()[0] == 2.5, "a.getBucket(1).lastAdded: "+a.getBucket(2).lastAdded()[0]);
+
+    });
+
 
 });
