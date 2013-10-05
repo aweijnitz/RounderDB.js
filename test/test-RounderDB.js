@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-var RounderDB = require('../RounderDB.js');
+var RounderDB = require('../lib/RounderDB.js');
 var Archive = require('../lib/Archive.js');
 var DataBucket = require('../lib/DataBucket.js');
 
