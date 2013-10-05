@@ -68,6 +68,33 @@ describe('DataBucket basics: ', function () {
         assert(b.aggregate() == 1.5, "Aggregation failed. Expected 1.5. Got "+ b.aggregate());
     });
 
+
+    it('Aggregates according to chosen strategy "average" AND signals roll up ', function () {
+
+        var b = DataBucket.createInstance(conf);
+
+        var rollUp =b.add(0, 12324);
+        assert(!rollUp, "Aggregation failed. Added 1 element. Expected false. Got: "+ rollUp);
+
+        rollUp = b.add(3, 12324);
+        assert(!rollUp, "Aggregation failed. Added 2 elements. Expected false. Got: "+ rollUp);
+
+        rollUp = b.add(0, 12324);
+        assert(!rollUp, "Aggregation failed. Added 3 elements. Expected false. Got: "+ rollUp);
+
+        rollUp = b.add(3, 12324);
+        assert(rollUp, "Aggregation failed. Added 4 elements. Expected true. Got: "+ rollUp);
+
+        rollUp = b.add(0, 12324);
+        assert(!rollUp, "Aggregation failed. Added 5 elements. Expected false. Got: "+ rollUp);
+
+        rollUp = b.add(3, 12324);
+        assert(!rollUp, "Aggregation failed. Added 1 element. Expected false. Got: "+ rollUp);
+
+
+    });
+
+
     it('Aggregates according to chosen strategy "max" ', function () {
         var confMax = {
             capacity: 2, // nr _data points to storage before aggregation occurs to next bucket
