@@ -37,7 +37,7 @@ describe('RingBuffer', function () {
         buf.push("b");
         buf.push("c");
         size = buf.push("d");
-        assert(capacity == size);
+        assert(capacity == size, "Capacity is not equal to size, although it should be! Size: "+size);
         assert(capacity == buf.getCurrentSize());
 
     });
@@ -158,6 +158,21 @@ describe('RingBuffer', function () {
         assert(sum == (3+4+5+6), "sum not correct");
         assert(max == 6, "max not correct");
 
+    });
+
+    it("getLastTrimmed() returns null when buffer is filling up", function() {
+        var buf = new RingBuffer(2);
+        buf.push("a");
+        assert(buf.getLastTrimmedElement() == null, "Didn't get null as expected. Got: "+buf.getLastTrimmedElement());
+    });
+
+    it("getLastTrimmed() returns last trimmed off value when buffer is at capacity", function() {
+        var buf = new RingBuffer(2);
+        buf.push("a");
+        buf.push("b");
+        buf.push("c");
+
+        assert(buf.getLastTrimmedElement() == "a", "Didn't get 'a' as expected. Got: "+buf.getLastTrimmedElement());
     });
 
 
