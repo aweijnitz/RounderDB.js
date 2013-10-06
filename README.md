@@ -7,7 +7,7 @@ Build status: [![Build Status](https://travis-ci.org/aweijnitz/RounderDB.js.png)
 ## Description
 RounderDB is a data logger. Each log, like for example CPU load reading, is called an *archive*. An *archive* keeps a number of *buckets* to store data in. The first bucket receives the added data points and data is then *aggregated up* to the remaining buckets in a chain, first -> second -> third bucket, etc. The aggregation method is configurable, and support is included for average, min, max and sum. 
 
-Each bucket is a fixed-size ring buffer of size N, where N is a configurable number, and aggregation up the chain occurs when N entries has been added the a buffer (going "full circle" triggers buffer aggregation).
+Each bucket is a fixed-size ring buffer of size N, where N is a configurable number. Aggregation up the chain occurs when N entries have been added to the a buffer, so going "full circle" triggers buffer aggregation.
 
 Data is stored as tuples ```[<val>, <timestamp>]```. The timestamp is either set explicitly when adding points, or will be added automatically. Out-of-sequence adding is currently not supported. 
 
