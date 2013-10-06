@@ -78,6 +78,7 @@ describe('Archive basics', function () {
         a.add(2, 1235);
         a.add(3, 1235); // this will trigger the rollUp
         assert(a.getBucket(1).lastAdded()[0] == 1.5, "Expected 1.5, got: "+a.getBucket(1).lastAdded()[0]);
+
     });
 
     it('Aggregation strategy "average", ripple rollUp', function () {
