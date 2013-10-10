@@ -1,4 +1,3 @@
-
 # RounderDB.js
 ## A low-I/O, fixed size, round robin db with in-mem support. Stores in RAM and syncs periodically to disk.
 
@@ -24,6 +23,40 @@ The intended use for RounderDB is to be embedded in a host application, like a s
 2. Add a couple of Archives, each with a couple of DataBuckets (you don't need to worry about this step if you do the config file)
 
 3. Add data to archives as it comes in, either with explicit time stamps, or using the default (timestamp created by RounderDB from server time).
+
+### Examples
+
+__Creating an instance__
+```javascript
+var db = new RounderDB();
+var archive = new Archive();
+
+archive.addBucket(new DataBucket(60, 'average'));
+db.addArchive('cpuLoad', archive);
+
+assert(db.getArchive('cpuLoad') instanceof Archive);
+assert(db.getNrArchives() == 1);
+```
+__Loading a saved instance, or creating a new from config__
+```javascript
+var DBConf = require('./conf/default.conf.js').DBconf;
+var db = null;
+
+if (fs.existsSync(DBconf.persistenceConf.dbFile)) {
+    var obj = JSON.parse(fs.readFileSync(DBconf.persistenceConf.dbFile));
+    db = RounderDB.loadInstance(obj);
+} else
+    db = RounderDB.createInstance(DBconf);
+```
+
+__Adding and reading data to/from an archive__
+```javascript
+db.add('loadAvg', 1.2);         // No timestamp. Use the local server time
+db.add('loadAvg', 1.3, 1234);   // Explicit timestamp provided as last arg
+
+// Get data for the first bucket in the archive 'loadAvg'
+var arr = db.getArchive('loadAvg').getDataForBucket(0);
+```
 
 See the file `./test/test-RounderDB.js` and the example config file in `./test/fixutures/testConfig.persist.json` to get an idea about how to use it. Looking in `RounderDB.js` is of course also useful.
 
