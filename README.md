@@ -67,6 +67,8 @@ IO is really slow in the Raspberry Pi and after realizing that the RRDTOOL-based
 
 To achieve the goal of reduced IO I need a datastore that doesn't store so frequently. On the Pi, especially when storing on the SD card, it is better to write a large file infrequently, than writing a small amounts of data frequently and this is exactly what the RounderDB does; It will keep data archives in memory and store all archives in one go at regular intervals. Data that has not been stored is of course lost, but considering that the intended use is monitoring of server status, infrequent loss of some data points is acceptable.
 
+Also, [see this short presentation](http://mildly-interesting.info/slides/MUCNodeJsUG/10-Oct-2013-RounderDB.html) I made on the subject at the Node.js UserGroup in Munich
+
 
 ## Running the tests
 **Unit tests:** 
