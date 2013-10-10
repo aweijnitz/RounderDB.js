@@ -11,9 +11,11 @@ Each bucket is a fixed-size ring buffer of size N, where N is a configurable num
 Data is stored as tuples `[<val>, <timestamp>]`. The timestamp is either set explicitly when adding points, or will be added automatically. Out-of-sequence adding is currently not supported. 
 
 ## Installation
-Either clone this repository, or in your project folder, do
+RounderDB is a Node.js project, so you need to have Node.js setup before. There are lots of instructions out there, so google it if you don't have it already. 
 
-	npm install rounderdb
+Provided Node.js is in place, either clone this repository, or in your project folder, do
+
+	npm install --save rounderdb
 
 ## Usage
 The intended use for RounderDB is to be embedded in a host application, like a server monitoring program, so the way to use it is something like this:
