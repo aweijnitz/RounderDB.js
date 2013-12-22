@@ -93,6 +93,6 @@ and
 ## Known issues
 The major "issue", is probably the inefficient storage format (JSON serialization of the whole object structure to disk). As long as you have limited data amounts, this should not be a problem, but it could become one with large data sets. At that point, switching to something like RRDTOOL, Ganglia, Nagios, Graphite or Munin is probably a good thing. RounderDB is not an enterprise application.
 
-Adding support for out of sequence messages would probably be a good thing, but since I currently don't need it, I haven't implemented it.
+Adding support for out of sequence messages would be nice, but since I currently don't need it, I haven't implemented it.
 
 There are no known bugs at this point. Please let me know if you find one, or even better: Fork, fix it and send me a pull request (including a test of course ;-).
