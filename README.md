@@ -41,7 +41,7 @@ assert(db.getNrArchives() == 1);
 ```
 __Loading a saved instance, or creating a new from config__
 ```javascript
-var DBConf = require('./conf/default.conf.js').DBconf;
+var DBConf = require('./conf/default.conf.js');
 var db = null;
 
 if (fs.existsSync(DBconf.persistenceConf.dbFile)) {
