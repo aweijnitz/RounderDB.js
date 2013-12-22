@@ -18,7 +18,7 @@ Provided Node.js is in place, either clone this repository, or in your project f
 	npm install --save rounderdb
 
 ## Usage
-The intended use for RounderDB is to be embedded in a host application, like a server monitoring program, so the way to use it is something like this:
+The intended use for RounderDB is to be embedded in a host application The way to use it is something like this:
 
 1. Create an instance of RounderDB (explicitly, or from config in a file)
 
